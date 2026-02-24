@@ -12,7 +12,7 @@ export default function ProductResults({ products, loading }: ProductResultsProp
     return (
       <div className="flex flex-col items-center justify-center py-12">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600" />
-        <p className="mt-3 text-sm text-zinc-500">Searching for products...</p>
+        <p className="mt-3 text-sm text-zinc-500">Buscando productos...</p>
       </div>
     );
   }
@@ -20,7 +20,7 @@ export default function ProductResults({ products, loading }: ProductResultsProp
   if (products.length === 0) {
     return (
       <p className="py-8 text-center text-sm text-zinc-400">
-        No results yet. Upload an image and click &quot;Search Prices&quot;.
+        Aun no hay resultados. Sube una imagen y haz clic en &quot;Buscar precios&quot;.
       </p>
     );
   }
@@ -41,11 +41,11 @@ export default function ProductResults({ products, loading }: ProductResultsProp
                 className="h-full w-full object-contain p-2"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = "";
-                  (e.target as HTMLImageElement).alt = "Image not available";
+                  (e.target as HTMLImageElement).alt = "Imagen no disponible";
                 }}
               />
             ) : (
-              <span className="text-xs text-zinc-400">No image</span>
+              <span className="text-xs text-zinc-400">Sin imagen</span>
             )}
           </div>
 
@@ -69,7 +69,7 @@ export default function ProductResults({ products, loading }: ProductResultsProp
               rel="noopener noreferrer"
               className="mt-auto inline-flex items-center gap-1 text-xs font-medium text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
             >
-              View Product →
+              Ver producto
             </a>
           </div>
         </div>

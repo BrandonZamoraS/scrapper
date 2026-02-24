@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Price Scraper Demo",
-  description: "Compare product prices across SearchApi.io, SerpApi and Apify",
+  title: "Demo de Rastreador de Precios",
+  description: "Compara precios de productos en SearchApi.io, SerpApi y Apify",
 };
 
 export default function RootLayout({
@@ -23,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

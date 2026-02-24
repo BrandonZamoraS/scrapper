@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
 
     if (!imageUrl) {
       return NextResponse.json<ApiResponse>(
-        { success: false, error: "Image URL is required" },
+        { success: false, error: "La URL de la imagen es obligatoria." },
         { status: 400 }
       );
     }
@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
     const apiKey = process.env.SERPAPI_KEY;
     if (!apiKey) {
       return NextResponse.json<ApiResponse>(
-        { success: false, error: "SerpApi API key not configured" },
+        { success: false, error: "No se configuro la clave API de SerpApi." },
         { status: 500 }
       );
     }
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     // Parse visual matches
     const visualMatches = response.data?.visual_matches || [];
     for (const match of visualMatches.slice(0, 15)) {
-      let price = "N/A";
+      let price = "No disponible";
       if (match.extracted_price != null) {
         const currency = match.currency === "USD" ? "$" : (match.currency || "$");
         price = `${currency}${match.extracted_price}`;
@@ -53,10 +53,10 @@ export async function POST(request: NextRequest) {
         || "";
 
       products.push({
-        title: match.title || "Unknown Product",
+        title: match.title || "Producto desconocido",
         price,
         image,
-        store: match.source || match.domain || "Unknown Store",
+        store: match.source || match.domain || "Tienda desconocida",
         link: match.link || "#",
       });
     }
@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
     // Also parse shopping results if available
     const shoppingResults = response.data?.shopping_results || [];
     for (const item of shoppingResults.slice(0, 10)) {
-      let price = "N/A";
+      let price = "No disponible";
       if (item.extracted_price != null) {
         price = `$${item.extracted_price}`;
       } else if (item.price) {
@@ -72,10 +72,10 @@ export async function POST(request: NextRequest) {
       }
 
       products.push({
-        title: item.title || "Unknown Product",
+        title: item.title || "Producto desconocido",
         price,
         image: item.thumbnail || item.image || "",
-        store: item.source || item.seller || "Unknown Store",
+        store: item.source || item.seller || "Tienda desconocida",
         link: item.link || item.product_link || "#",
       });
     }
@@ -90,11 +90,12 @@ export async function POST(request: NextRequest) {
         ? error.response?.data?.error || error.message
         : error instanceof Error
           ? error.message
-          : "Unknown error";
+          : "Error desconocido";
 
     return NextResponse.json<ApiResponse>(
-      { success: false, error: `SerpApi error: ${message}` },
+      { success: false, error: `Error de SerpApi: ${message}` },
       { status: 500 }
     );
   }
 }
+

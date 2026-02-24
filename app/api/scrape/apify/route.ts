@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
 
     if (!imageUrl) {
       return NextResponse.json<ApiResponse>(
-        { success: false, error: "Image URL is required" },
+        { success: false, error: "La URL de la imagen es obligatoria." },
         { status: 400 }
       );
     }
@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     const apiKey = process.env.APIFY_API_KEY;
     if (!apiKey) {
       return NextResponse.json<ApiResponse>(
-        { success: false, error: "Apify API key not configured" },
+        { success: false, error: "No se configuro la clave API de Apify." },
         { status: 500 }
       );
     }
@@ -46,10 +46,10 @@ export async function POST(request: NextRequest) {
       if (item.products?.results) {
         for (const p of item.products.results.slice(0, 15)) {
           products.push({
-            title: p.title || "Unknown Product",
-            price: p.price || "N/A",
+            title: p.title || "Producto desconocido",
+            price: p.price || "No disponible",
             image: p.thumbnail || "",
-            store: p.vendor || "Unknown Store",
+            store: p.vendor || "Tienda desconocida",
             link: p.link || "#",
           });
         }
@@ -62,8 +62,8 @@ export async function POST(request: NextRequest) {
           if (!search) continue;
 
           // Extract store name from the beginning of title (e.g. "Amazon.comProduct Title")
-          let store = "Unknown Store";
-          let title = search.title || search.description || "Unknown Product";
+          let store = "Tienda desconocida";
+          let title = search.title || search.description || "Producto desconocido";
 
           // The title often starts with the store domain
           const knownStores = [
@@ -73,13 +73,13 @@ export async function POST(request: NextRequest) {
           for (const s of knownStores) {
             if (title.startsWith(s)) {
               store = s;
-              title = title.substring(s.length).replace(/^[\s\-–—·:]+/, "").trim() || title;
+              title = title.substring(s.length).replace(/^[\s\-.:]+/, "").trim() || title;
               break;
             }
           }
 
           // Try to extract store from href domain
-          if (store === "Unknown Store" && search.href?.startsWith("http")) {
+          if (store === "Tienda desconocida" && search.href?.startsWith("http")) {
             try {
               const domain = new URL(search.href).hostname.replace("www.", "");
               store = domain;
@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
 
           products.push({
             title,
-            price: "N/A",
+            price: "No disponible",
             image: "",
             store,
             link: search.href?.startsWith("http") ? search.href : "#",
@@ -109,11 +109,12 @@ export async function POST(request: NextRequest) {
           error.message
         : error instanceof Error
           ? error.message
-          : "Unknown error";
+          : "Error desconocido";
 
     return NextResponse.json<ApiResponse>(
-      { success: false, error: `Apify error: ${message}` },
+      { success: false, error: `Error de Apify: ${message}` },
       { status: 500 }
     );
   }
 }
+

@@ -49,13 +49,13 @@ export default function ApiTabs({ imageUrl }: ApiTabsProps) {
       } else {
         setErrors((prev) => ({
           ...prev,
-          [tabId]: data.error || "Unknown error occurred",
+          [tabId]: data.error || "Ocurrio un error desconocido.",
         }));
       }
     } catch {
       setErrors((prev) => ({
         ...prev,
-        [tabId]: "Network error. Please try again.",
+        [tabId]: "Error de red. Intentalo de nuevo.",
       }));
     } finally {
       setLoading((prev) => ({ ...prev, [tabId]: false }));
@@ -68,7 +68,7 @@ export default function ApiTabs({ imageUrl }: ApiTabsProps) {
     <div className="w-full rounded-xl border border-zinc-200 bg-white shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
       <div className="border-b border-zinc-200 p-6 pb-0 dark:border-zinc-800">
         <h2 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
-          2. Search for Prices
+          2. Buscar precios
         </h2>
 
         {/* URL Input */}
@@ -77,7 +77,7 @@ export default function ApiTabs({ imageUrl }: ApiTabsProps) {
             type="url"
             value={inputUrl}
             onChange={(e) => setInputUrl(e.target.value)}
-            placeholder="Image URL (auto-filled after upload)"
+            placeholder="URL de la imagen (se completa automaticamente tras subirla)"
             className="flex-1 rounded-lg border border-zinc-300 bg-zinc-50 px-4 py-2.5 text-sm text-zinc-900 placeholder-zinc-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100"
           />
           <button
@@ -85,7 +85,7 @@ export default function ApiTabs({ imageUrl }: ApiTabsProps) {
             disabled={!inputUrl.trim() || loading[activeTab]}
             className="whitespace-nowrap rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {loading[activeTab] ? "Searching..." : "Search Prices"}
+            {loading[activeTab] ? "Buscando..." : "Buscar precios"}
           </button>
         </div>
 

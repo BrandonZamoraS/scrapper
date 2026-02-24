@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
 
     if (!file) {
       return NextResponse.json<UploadResult>(
-        { success: false, error: "No file provided" },
+        { success: false, error: "No se proporciono ningun archivo." },
         { status: 400 }
       );
     }
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
     if (!allowedTypes.includes(file.type)) {
       return NextResponse.json<UploadResult>(
-        { success: false, error: "Invalid file type. Allowed: JPEG, PNG, WebP, GIF" },
+        { success: false, error: "Tipo de archivo invalido. Permitidos: JPEG, PNG, WebP, GIF." },
         { status: 400 }
       );
     }
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
 
     if (uploadError) {
       return NextResponse.json<UploadResult>(
-        { success: false, error: `Upload failed: ${uploadError.message}` },
+        { success: false, error: `Error al subir el archivo: ${uploadError.message}` },
         { status: 500 }
       );
     }
@@ -53,9 +53,9 @@ export async function POST(request: NextRequest) {
       url: publicUrlData.publicUrl,
     });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Unknown error";
+    const message = error instanceof Error ? error.message : "Error desconocido";
     return NextResponse.json<UploadResult>(
-      { success: false, error: `Server error: ${message}` },
+      { success: false, error: `Error del servidor: ${message}` },
       { status: 500 }
     );
   }

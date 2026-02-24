@@ -29,7 +29,7 @@ export default function ImageUpload({ onUploadSuccess }: ImageUploadProps) {
   const handleUpload = async () => {
     const file = fileInputRef.current?.files?.[0];
     if (!file) {
-      setError("Please select a file first");
+      setError("Primero selecciona un archivo.");
       return;
     }
 
@@ -51,10 +51,10 @@ export default function ImageUpload({ onUploadSuccess }: ImageUploadProps) {
         setUploaded(true);
         onUploadSuccess(result.url);
       } else {
-        setError(result.error || "Upload failed");
+        setError(result.error || "Error al subir el archivo.");
       }
     } catch {
-      setError("Network error. Please try again.");
+      setError("Error de red. Intentalo de nuevo.");
     } finally {
       setLoading(false);
     }
@@ -63,7 +63,7 @@ export default function ImageUpload({ onUploadSuccess }: ImageUploadProps) {
   return (
     <div className="w-full rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
       <h2 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
-        1. Upload Product Image
+        1. Sube la imagen del producto
       </h2>
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
@@ -72,11 +72,11 @@ export default function ImageUpload({ onUploadSuccess }: ImageUploadProps) {
           {preview ? (
             <img
               src={preview}
-              alt="Preview"
+              alt="Vista previa"
               className="h-full w-full object-cover"
             />
           ) : (
-            <span className="text-sm text-zinc-400">No image</span>
+            <span className="text-sm text-zinc-400">Sin imagen</span>
           )}
         </div>
 
@@ -94,18 +94,18 @@ export default function ImageUpload({ onUploadSuccess }: ImageUploadProps) {
             disabled={loading || !preview}
             className="w-fit rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {loading ? "Uploading..." : "Upload to Supabase"}
+            {loading ? "Subiendo..." : "Subir a Supabase"}
           </button>
 
           {uploaded && (
             <p className="text-sm font-medium text-green-600 dark:text-green-400">
-              ✓ Image uploaded successfully
+              OK: Imagen subida correctamente
             </p>
           )}
 
           {error && (
             <p className="text-sm font-medium text-red-600 dark:text-red-400">
-              ✗ {error}
+              Error: {error}
             </p>
           )}
         </div>

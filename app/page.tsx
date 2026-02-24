@@ -13,10 +13,10 @@ export default function Home() {
         {/* Header */}
         <header className="mb-10 text-center">
           <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">
-            Price Scraper Demo
+            Demo de Rastreador de Precios
           </h1>
           <p className="mt-2 text-base text-zinc-500 dark:text-zinc-400">
-            Upload a product image and compare prices across SearchApi.io, SerpApi &amp; Apify
+            Sube una imagen de producto y compara precios en SearchApi.io, SerpApi y Apify
           </p>
         </header>
 
